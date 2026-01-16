@@ -1,4 +1,5 @@
 import Arrow from "@/assets/images/autharrow.png";
+import AppBackground from "@/components/AppBackground";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, useRouter } from "expo-router";
@@ -9,43 +10,45 @@ export default function Index() {
   const router = useRouter();
 
   return (
-    <LinearGradient
-      colors={["#023477", "#000831"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.container}
-    >
-      <Text style={styles.title}>Get Started</Text>
+    <AppBackground>
+      <LinearGradient
+        colors={["#023477", "#000831"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.container}
+      >
+        <Text style={styles.title}>Get Started</Text>
 
-      <View style={styles.btnContainer}>
-        <Pressable
-          style={styles.btnLink}
-          onPress={() => router.push("/auth/individual")}
-        >
-          <View style={styles.btnContent}>
-            <Text style={styles.btnText}>Individual Account</Text>
-            <Image source={Arrow} style={styles.arrow} />
-          </View>
-        </Pressable>
+        <View style={styles.btnContainer}>
+          <Pressable
+            style={styles.btnLink}
+            onPress={() => router.push("/auth/individual")}
+          >
+            <View style={styles.btnContent}>
+              <Text style={styles.btnText}>Individual Account</Text>
+              <Image source={Arrow} style={styles.arrow} />
+            </View>
+          </Pressable>
 
-        <Pressable
-          style={styles.btnLink}
-          onPress={() => router.push("/auth/business")}
-        >
-          <View style={styles.btnContent}>
-            <Text style={styles.btnText}>Corporate Account</Text>
-            <Image source={Arrow} style={styles.arrow} />
-          </View>
-        </Pressable>
-      </View>
+          <Pressable
+            style={styles.btnLink}
+            onPress={() => router.push("/auth/business")}
+          >
+            <View style={styles.btnContent}>
+              <Text style={styles.btnText}>Corporate Account</Text>
+              <Image source={Arrow} style={styles.arrow} />
+            </View>
+          </Pressable>
+        </View>
 
-      <Text style={styles.footerText}>
-        Already have an Account?{" "}
-        <Link href="/auth/login">
-          <Text style={styles.link}>Sign In</Text>
-        </Link>
-      </Text>
-    </LinearGradient>
+        <Text style={styles.footerText}>
+          Already have an Account?{" "}
+          <Link href="/auth/login">
+            <Text style={styles.link}>Sign In</Text>
+          </Link>
+        </Text>
+      </LinearGradient>
+    </AppBackground>
   );
 }
 

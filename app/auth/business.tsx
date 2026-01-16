@@ -1,4 +1,5 @@
 import BackArrow from "@/assets/images/backarrow.png";
+import AppBackground from "@/components/AppBackground";
 import AppButton from "@/components/button";
 import AppInput from "@/components/input";
 import { Image } from "expo-image";
@@ -24,63 +25,71 @@ export default function RegisterRegistration() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"} // adjust layout when keyboard appears
-      >
-        <ScrollView
-          contentContainerStyle={styles.container}
-          keyboardShouldPersistTaps="handled"
+      <AppBackground>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"} // adjust layout when keyboard appears
         >
-          <View style={styles.acctNav}>
-            <Pressable style={styles.backCon} onPress={() => router.back()}>
-              <Image source={BackArrow} style={{ width: 16, height: 16 }} />
-            </Pressable>
-            <Text style={styles.createText}>Create Account</Text>
-          </View>
-
-          <View style={styles.inputContainer}>
-            <AppInput label="Business Name" placeholder="Enter Business Name" />
-            <AppInput
-              label="Email Address"
-              placeholder="Enter Email Address"
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-            <AppInput
-              label="Phone Number"
-              placeholder="Enter +234"
-              keyboardType="phone-pad"
-            />
-            <View>
-              <AppInput
-                label="Password"
-                placeholder="Enter Password"
-                secureTextEntry={true}
-              />
-              <Text style={{ fontSize: 12 }}>
-                Password must be at least 8 characters
-              </Text>
+          <ScrollView
+            contentContainerStyle={styles.container}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.acctNav}>
+              <Pressable style={styles.backCon} onPress={() => router.back()}>
+                <Image source={BackArrow} style={{ width: 16, height: 16 }} />
+              </Pressable>
+              <Text style={styles.createText}>Create Account</Text>
             </View>
-            <View>
-              <AppInput
-                label="Confirm Password"
-                placeholder="Enter Confirm Password"
-                secureTextEntry={true}
-              />
-              <Text style={{ fontSize: 12 }}>Password must be the same</Text>
-            </View>
-            <Pressable style={styles.row} onPress={() => setChecked(!checked)}>
-              <View style={[styles.checkbox, checked && styles.checked]} />
-              <Text style={{ marginLeft: 8 }}>
-                I agree to all the terms and conditions
-              </Text>
-            </Pressable>
 
-            <AppButton title={"Create Account"} onPress={handleSubmit} />
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+            <View style={styles.inputContainer}>
+              <AppInput
+                label="Business Name"
+                placeholder="Enter Business Name"
+              />
+              <AppInput
+                label="Email Address"
+                placeholder="Enter Email Address"
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+              <AppInput
+                label="Phone Number"
+                placeholder="Enter +234"
+                keyboardType="phone-pad"
+              />
+              <View>
+                <AppInput
+                  label="Password"
+                  placeholder="Enter Password"
+                  secureTextEntry={true}
+                />
+                <Text style={{ fontSize: 12 }}>
+                  Password must be at least 8 characters
+                </Text>
+              </View>
+              <View>
+                <AppInput
+                  label="Confirm Password"
+                  placeholder="Enter Confirm Password"
+                  secureTextEntry={true}
+                />
+                <Text style={{ fontSize: 12 }}>Password must be the same</Text>
+              </View>
+              <Pressable
+                style={styles.row}
+                onPress={() => setChecked(!checked)}
+              >
+                <View style={[styles.checkbox, checked && styles.checked]} />
+                <Text style={{ marginLeft: 8 }}>
+                  I agree to all the terms and conditions
+                </Text>
+              </Pressable>
+
+              <AppButton title={"Create Account"} onPress={handleSubmit} />
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </AppBackground>
     </SafeAreaView>
   );
 }
