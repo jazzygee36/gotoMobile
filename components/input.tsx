@@ -6,6 +6,9 @@ type AppInputProps = {
   secureTextEntry?: boolean;
   keyboardType?: string;
   autoCapitalize?: string;
+  onChangeText?: () => void;
+  value?: any;
+  error?: string;
 };
 
 export default function AppInput({
@@ -14,6 +17,9 @@ export default function AppInput({
   secureTextEntry,
   keyboardType,
   autoCapitalize,
+  onChangeText,
+  value,
+  error,
 }: AppInputProps) {
   return (
     <View style={styles.container}>
@@ -24,6 +30,9 @@ export default function AppInput({
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize}
+        onChangeText={onChangeText}
+        value={value}
+        error={error}
       />
     </View>
   );

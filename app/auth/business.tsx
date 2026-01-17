@@ -85,7 +85,11 @@ export default function RegisterRegistration() {
                 </Text>
               </Pressable>
 
-              <AppButton title={"Create Account"} onPress={handleSubmit} />
+              <AppButton
+                title={"Create Account"}
+                onPress={handleSubmit}
+                style={styles.btn}
+              />
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
@@ -137,5 +141,9 @@ const styles = StyleSheet.create({
   },
   checked: {
     backgroundColor: "#000831",
+  },
+  btn: {
+    backgroundColor: "#000831",
+    padding: 14,
   },
 });
