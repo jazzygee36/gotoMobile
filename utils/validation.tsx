@@ -11,3 +11,11 @@ export const individualSchema = z.object({
   phoneNumber: z.string().min(3, "Phone number name is required"),
   email: z.string().email("Invalid email address"),
 });
+
+export const corporateSchema = z.object({
+  businessName: z.string().min(3, "Business name is required"),
+  email: z.email().min(3, "Email is required"),
+  phoneNumber: z.number().min(11, "Phone number is required"),
+  password: z.string().min(3, "Password is required"),
+  confirmPwd: z.string().min(3, "Password is required"),
+});

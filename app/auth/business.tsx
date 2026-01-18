@@ -2,9 +2,11 @@ import BackArrow from "@/assets/images/backarrow.png";
 import AppBackground from "@/components/AppBackground";
 import AppButton from "@/components/button";
 import AppInput from "@/components/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -16,11 +18,21 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { corporateSchema } from "@/utils/validation";
+
 export default function RegisterRegistration() {
   const router = useRouter();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(corporateSchema),
+  });
   const [checked, setChecked] = useState(false);
-  const handleSubmit = () => {
-    // submit logic here
+
+  const onSubmit = (data: any) => {
+    console.log(data);
   };
 
   return (
@@ -42,38 +54,112 @@ export default function RegisterRegistration() {
             </View>
 
             <View style={styles.inputContainer}>
-              <AppInput
-                label="Business Name"
-                placeholder="Enter Business Name"
-              />
-              <AppInput
-                label="Email Address"
-                placeholder="Enter Email Address"
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
-              <AppInput
-                label="Phone Number"
-                placeholder="Enter +234"
-                keyboardType="phone-pad"
-              />
               <View>
-                <AppInput
-                  label="Password"
-                  placeholder="Enter Password"
-                  secureTextEntry={true}
+                <Controller
+                  control={control}
+                  name="businessName"
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <AppInput
+                        label="Business Name"
+                        placeholder="Enter Business Name"
+                        onChangeText={onChange}
+                        value={value}
+                      />
+                    );
+                  }}
                 />
+                {errors.businessName && (
+                  <Text style={styles.err}>{errors.businessName.message}</Text>
+                )}
+              </View>
+              <View>
+                <Controller
+                  control={control}
+                  name="email"
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <AppInput
+                        label="Email Address"
+                        placeholder="Enter Email Address"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        onChangeText={onChange}
+                        value={value}
+                      />
+                    );
+                  }}
+                />
+                {errors.email && (
+                  <Text style={styles.err}>{errors.email.message}</Text>
+                )}
+              </View>
+              <View>
+                <Controller
+                  control={control}
+                  name="phoneNumber"
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <AppInput
+                        label="Phone Number"
+                        placeholder="Enter +234"
+                        keyboardType="phone-pad"
+                        onChangeText={onChange}
+                        value={value}
+                      />
+                    );
+                  }}
+                />
+                {errors.phoneNumber && (
+                  <Text style={styles.err}>{errors.phoneNumber.message}</Text>
+                )}
+              </View>
+
+              <View>
+                <Controller
+                  control={control}
+                  name="password"
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <AppInput
+                        label="Password"
+                        placeholder="Enter Password"
+                        secureTextEntry={true}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+                    );
+                  }}
+                />
+
                 <Text style={{ fontSize: 12 }}>
                   Password must be at least 8 characters
                 </Text>
+                {errors.password && (
+                  <Text style={styles.err}>{errors.password.message}</Text>
+                )}
               </View>
               <View>
-                <AppInput
-                  label="Confirm Password"
-                  placeholder="Enter Confirm Password"
-                  secureTextEntry={true}
+                <Controller
+                  control={control}
+                  name="confirmPwd"
+                  render={({ field: { onChange, value } }) => {
+                    return (
+                      <AppInput
+                        label="Confirm Password"
+                        placeholder="Enter Confirm Password"
+                        secureTextEntry={true}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+                    );
+                  }}
                 />
+
                 <Text style={{ fontSize: 12 }}>Password must be the same</Text>
+                {errors.confirmPwd && (
+                  <Text style={styles.err}>{errors.confirmPwd.message}</Text>
+                )}
               </View>
               <Pressable
                 style={styles.row}
@@ -87,7 +173,7 @@ export default function RegisterRegistration() {
 
               <AppButton
                 title={"Create Account"}
-                onPress={handleSubmit}
+                onPress={handleSubmit(onSubmit)}
                 style={styles.btn}
               />
             </View>
@@ -145,5 +231,8 @@ const styles = StyleSheet.create({
   btn: {
     backgroundColor: "#000831",
     padding: 14,
+  },
+  err: {
+    color: "red",
   },
 });
